@@ -13,8 +13,7 @@ $( document ).ready(function() {
         var data = $("#ajax_form").serializeArray();
         var parent_id = $("#ajax_form #parent_id").val();
         var fbody = $("#ajax_form #fbody").val();
-        var d = new Date();
-        var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+
 
         $.post(
             'index.php', // адрес обработчика
@@ -23,27 +22,11 @@ $( document ).ready(function() {
                 console.log(id);
                 if(id == 1){ //ul
                     $(".childrens_comment_" + parent_id ).append(
-                        '<ul class="list-unstyled"><li class="media"><img src="..." class="img  mr-3" alt="..."><div class="media-body"><span class="badge badge-dark">' +
-                        strDate +
-                        '</span><a href="#" data-whatever="'+
-                        id +
-                        '" data-toggle="modal" data-target="#exampleModal" class="badge badge-default">Комментировать</a><div class="body">'+
-                        fbody +
-                        '</div><div class="childrens_comment_'+
-                        id+
-                        '"></div></div></li></ul>'
+                        '<ul class="list-unstyled">'+f(id,fbody)+'</ul>'
                     );
                 }if(id > 1){ //li
                         $(".childrens_comment_" + parent_id + " ul").append(
-                            '<li class="media"><img src="..." class="img  mr-3" alt="..."><div class="media-body"><span class="badge badge-dark">' +
-                            strDate +
-                            '</span><a href="#" data-whatever="'+
-                            id +
-                            '" data-toggle="modal" data-target="#exampleModal" class="badge badge-default">Комментировать</a><div class="body">'+
-                            fbody +
-                                '</div><div class="childrens_comment_'+
-                            id+
-                                '"></div></div></li>'
+                            f(id,fbody)
                         );
                 }else{ //error
 
@@ -56,3 +39,18 @@ $( document ).ready(function() {
 
 
 });
+
+
+function f(id,fbody) {
+    var d = new Date();
+    var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+    return '<li class="media"><img src="..." class="img  mr-3" alt="..."><div class="media-body"><span class="badge badge-dark">' +
+        strDate +
+        '</span><a href="#" data-whatever="'+
+        id +
+        '" data-toggle="modal" data-target="#exampleModal" class="badge badge-default">Комментировать</a><div class="body">'+
+        fbody +
+        '</div><div class="childrens_comment_'+
+        id+
+        '"></div></div></li>'
+}
